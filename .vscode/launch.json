@@ -1,0 +1,47 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "early-clinicalBERT",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--task_name","readmission",
+            "--readmission_mode","early",
+            "--do_eval",
+            "--data_dir","./data/3days",
+            "--bert_model","./model/early_readmission",
+            "--max_seq_length","512", 
+            "--output_dir", "./result_early"],
+        },
+        {
+            "name": "discharge-clinicalBERT",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--task_name","readmission",
+            "--readmission_mode","discharge",
+            "--do_eval",
+            "--data_dir","./data/discharge",
+            "--bert_model","./model/discharge_readmission",
+            "--max_seq_length","512", 
+            "--output_dir", "./result_discharge"],
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

@@ -2,8 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+import warnings
+warnings.simplefilter(action='ignore',category=FutureWarning)
 
-df_adm = pd.read_csv('/Users/KexinHuang/Downloads/ADMISSIONS.csv')
+
+df_adm = pd.read_csv('/home/josaphat/Desktop/research/mimic-iii-clinical-database-1.4/ADMISSIONS.csv')
 df_adm.ADMITTIME = pd.to_datetime(df_adm.ADMITTIME, format = '%Y-%m-%d %H:%M:%S', errors = 'coerce')
 df_adm.DISCHTIME = pd.to_datetime(df_adm.DISCHTIME, format = '%Y-%m-%d %H:%M:%S', errors = 'coerce')
 df_adm.DEATHTIME = pd.to_datetime(df_adm.DEATHTIME, format = '%Y-%m-%d %H:%M:%S', errors = 'coerce')
@@ -28,7 +31,7 @@ df_adm = df_adm[df_adm['ADMISSION_TYPE']!='NEWBORN']
 df_adm = df_adm[df_adm.DEATHTIME.isnull()]
 df_adm['DURATION'] = (df_adm['DISCHTIME']-df_adm['ADMITTIME']).dt.total_seconds()/(24*60*60)
 
-df_notes = pd.read_csv('/Users/KexinHuang/Downloads/NOTEEVENTS.csv')
+df_notes = pd.read_csv('/home/josaphat/Desktop/research/mimic-iii-clinical-database-1.4/NOTEEVENTS.csv')
 df_notes = df_notes.sort_values(by=['SUBJECT_ID','HADM_ID','CHARTDATE'])
 df_adm_notes = pd.merge(df_adm[['SUBJECT_ID','HADM_ID','ADMITTIME','DISCHTIME','DAYS_NEXT_ADMIT','NEXT_ADMITTIME','ADMISSION_TYPE','DEATHTIME','OUTPUT_LABEL','DURATION']],
                         df_notes[['SUBJECT_ID','HADM_ID','CHARTDATE','TEXT','CATEGORY']], 
